@@ -1,0 +1,8 @@
+# User's GDD — not part of the kit
+gdd.txt
+
+# Generated output
+reviews/*.md
+reviews/*.json
+review-board.html
+review-viz.html
