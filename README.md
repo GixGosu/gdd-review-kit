@@ -20,8 +20,9 @@ installed and authenticated.
 ## Setup
 
 1. Clone or unzip this kit. You get:
-   - `.claude/agents/` with the six reviewer definitions
-   - `CLAUDE.md` with orchestration rules
+   - `.claude/agents/` with ten agent definitions (six reviewers, four
+     for the visualization pipeline)
+   - `CLAUDE.md` with orchestration rules for all five rounds
    - `reviews/` where output lands
 2. Drop your game design document in as **`gdd.txt`**. Plain text. If
    it's long, trim to the pitch and gameplay overview sections. A few
@@ -93,3 +94,8 @@ player-psychologist as a direct debate on the document's central design
 tension."
 
 **Reviews are slow.** Trim `gdd.txt` to a shorter excerpt.
+
+**Round 5 visualization has accuracy errors.** The viz-reviewer writes
+its audit to `reviews/viz-audit.md`. Tell Claude: "Re-run the
+html-builder with the fixes from the viz audit, then re-run the
+viz-reviewer."
