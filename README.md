@@ -1,35 +1,46 @@
-# GDD Multi-Agent Review Kit (Claude Code)
+# GDD Multi-Agent Review Kit
 
 Six AI reviewers tear apart your game design document in parallel, then
 cross-examine each other. A moderator synthesizes the result. A second
 agent team builds an interactive visualization page. You get ranked
-problems, unresolved disagreements, and two HTML reports. The whole
-thing runs in one Claude Code terminal.
+problems, unresolved disagreements, and two HTML reports. It supports
+Claude Code and Codex.
 
 Review team: systems designer, narrative critic, player psychologist,
-feasibility lead, adversarial QA, business analyst.
+feasibility lead, adversarial QA, business analyst, and an optional visual
+reviewer for mockups.
 
 Visualization team: data extractor, viz designer, HTML builder, viz
 reviewer.
 
 ## Requirements
 
-[Claude Code](https://docs.claude.com/en/docs/claude-code/overview),
-installed and authenticated.
+Either of the following:
+
+- [Claude Code](https://docs.claude.com/en/docs/claude-code/overview),
+  installed and authenticated
+- Codex, with filesystem access to this repository and image-viewing support
 
 ## Setup
 
 1. Clone or unzip this kit. You get:
    - `.claude/agents/` with ten agent definitions (six reviewers, four
      for the visualization pipeline)
-   - `CLAUDE.md` with orchestration rules for all five rounds
+   - `CLAUDE.md` for the Claude Code workflow and `AGENTS.md` for the Codex
+     workflow
+   - `codex/roles/visual-reviewer.md` for optional mockup review
    - `reviews/` where output lands
 2. Drop your game design document in as **`gdd.txt`**. Plain text. If
    it's long, trim to the pitch and gameplay overview sections. A few
    thousand words is the sweet spot.
 3. Clear out `reviews/` if it has files from a previous run.
+4. Optional: place UI mockups, wireframes, or screenshots in `mockups/`.
+   Supported formats are PNG, JPG, JPEG, WEBP, and GIF. These files stay local
+   and are not committed by default.
 
 ## Running a review
+
+### Claude Code
 
 Open a terminal here, run `claude`, then type these one at a time:
 
@@ -45,11 +56,31 @@ Open a terminal here, run `claude`, then type these one at a time:
 
 Read the output between rounds.
 
+### Codex
+
+Open this repository in Codex and request the rounds one at a time:
+
+    Run Round 1.
+
+    Run Round 2.
+
+    Run Round 3.
+
+    Run Round 4.
+
+    Run Round 5.
+
+Codex reads `AGENTS.md` automatically. It reuses the existing six reviewer
+briefs and adds the visual reviewer whenever `mockups/` contains images. When
+fewer than six worker slots are available, Codex runs reviewers in parallel
+batches while keeping each review context independent.
+
 ### What each round does
 
 **Round 1** spawns all six reviewers in parallel. Each gets its own
 isolated context with only the GDD and its role. Findings go to
-`reviews/<agent>.md`.
+`reviews/<agent>.md`. In Codex, a visual reviewer is added when `mockups/`
+contains assets.
 
 **Round 2** re-spawns the reviewers, this time with access to all six
 Round 1 files. They argue with each other: flag conflicts, find issues
@@ -57,11 +88,13 @@ that only show up when you combine two lenses, revise their own calls.
 
 **Round 3** turns the main session into a moderator. It reads everything
 and writes `reviews/SYNTHESIS.md` with a ranked top-5, unresolved
-disagreements, quick wins, and a verdict.
+disagreements, quick wins, and a verdict. When mockups were reviewed, the
+synthesis calls out the visual findings that affect the top issues.
 
 **Round 4** generates `review-board.html`, a self-contained dark-themed
 report you can open in any browser. Designed to be readable on a
-projector from the back of a room.
+projector from the back of a room. Codex includes mockup filenames and their
+linked findings without embedding the original images.
 
 **Round 5** runs the visualization team. A data extractor pulls
 structured JSON from the reviews. A viz designer picks the right charts
