@@ -30,9 +30,11 @@ Either of the following:
      workflow
    - `codex/roles/visual-reviewer.md` for optional mockup review
    - `reviews/` where output lands
-2. Drop your game design document in as **`gdd.txt`**. Plain text. If
-   it's long, trim to the pitch and gameplay overview sections. A few
-   thousand words is the sweet spot.
+2. Drop the complete GDD into **`input/`** as a PDF, Word document (`.docx`),
+   Markdown, or plain-text file. No trimming, transcription, or conversion is
+   required. The Codex workflow reads the full document and creates its own
+   review-only text extract. `gdd.txt` in the project root remains supported
+   for the original Claude Code workflow.
 3. Clear out `reviews/` if it has files from a previous run.
 4. Optional: place UI mockups, wireframes, or screenshots in `mockups/`.
    Supported formats are PNG, JPG, JPEG, WEBP, and GIF. These files stay local
@@ -71,16 +73,19 @@ Open this repository in Codex and request the rounds one at a time:
     Run Round 5.
 
 Codex reads `AGENTS.md` automatically. It reuses the existing six reviewer
-briefs and adds the visual reviewer whenever `mockups/` contains images. When
-fewer than six worker slots are available, Codex runs reviewers in parallel
-batches while keeping each review context independent.
+briefs, reads the full GDD from `input/` without requiring a shortened copy,
+and adds the visual reviewer whenever `mockups/` contains images or the source
+document itself contains reviewable visual material. When fewer than six worker
+slots are available, Codex runs reviewers in parallel batches while keeping
+each review context independent.
 
 ### What each round does
 
 **Round 1** spawns all six reviewers in parallel. Each gets its own
 isolated context with only the GDD and its role. Findings go to
-`reviews/<agent>.md`. In Codex, a visual reviewer is added when `mockups/`
-contains assets.
+`reviews/<agent>.md`. In Codex, the complete source is first normalized into
+`reviews/GDD-SOURCE.md`; a visual reviewer is added when `mockups/` contains
+assets or the GDD includes visual material.
 
 **Round 2** re-spawns the reviewers, this time with access to all six
 Round 1 files. They argue with each other: flag conflicts, find issues
@@ -111,8 +116,8 @@ works well:
 
 https://archive.org/stream/DeusExDesignDoc11081997/Majestic%20Revolutions%20-%20Joe%20Martin_djvu.txt
 
-Save it as `gdd.txt`, trim to the intro pitch and gameplay overview if
-you want faster results, and run all five rounds.
+For Claude Code, save it as `gdd.txt`. For Codex, place the complete text file
+in `input/` and run all five rounds—no trimming required.
 
 ## Troubleshooting
 

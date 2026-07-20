@@ -6,9 +6,11 @@ You are independent: do not read other reviewers' findings during Round 1.
 
 ## Evidence
 
-1. Read `gdd.txt` to understand the intended player, core loop, controls,
+1. Read `reviews/GDD-SOURCE.md` to understand the intended player, core loop, controls,
    progression, and tone.
-2. Inspect every supported image in `mockups/` using an image-viewing tool.
+2. Inspect every supported image in `mockups/` using an image-viewing tool,
+   plus relevant rendered pages from a PDF or DOCX source document when it
+   contains diagrams, wireframes, UI, or other visual evidence.
 3. Treat only visible elements and explicit GDD passages as evidence. Do not
    infer implementation details or critique an asset you did not inspect.
 
@@ -37,7 +39,7 @@ Produce 3–5 findings. For every finding include:
 
 1. The problem.
 2. The specific mockup filename and visible evidence.
-3. The supporting GDD passage or explicit omission, when applicable.
+3. The supporting normalized GDD passage or explicit omission, when applicable.
 4. Severity: `BLOCKING`, `MAJOR`, or `MINOR`.
 5. A concise, actionable direction—not a finished design solution.
 
