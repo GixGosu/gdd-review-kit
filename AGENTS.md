@@ -35,6 +35,9 @@ specialists' work and keep their contexts independent.
   `implementation-reviewer` role from
   `codex/roles/implementation-reviewer.md`. Treat context as evidence, not
   as a substitute for the GDD, and never commit private implementation context.
+- Optional approved decisions belong in `context/approved-decisions.md`. Use
+  this file only for decisions the design owner has explicitly made; never
+  promote a reviewer recommendation into an approved decision.
 
 The text-review roles are: `systems-designer`, `narrative-critic`,
 `player-psychologist`, `feasibility-lead`, `adversarial-qa`, and
@@ -100,6 +103,50 @@ Do not introduce critiques that cannot be traced to a review file. Include:
    the visual issues that made the top five and any mockup-specific caveats.
 
 Print the synthesis after writing it.
+
+## Round 3.5 — revision handoff
+
+Run this round only when the user explicitly asks for a revision brief, an
+editor handoff, or a prompt for an external document editor.
+
+Read `reviews/GDD-SOURCE.md`, `reviews/SYNTHESIS.md`, and every participating
+review file. Read `context/approved-decisions.md` only when it exists. Write:
+
+1. `reviews/REVISION-BRIEF.md`, with:
+   - **APPROVED DECISIONS** copied only from the approved-decisions file;
+   - **SECTION-BY-SECTION EDIT MAP**: source page/section, problem, exact
+     edit intent, and the review files supporting it;
+   - **INSERT OR REPLACE CONTENT** for rules, tables, and definitions where
+     the evidence supports precise text;
+   - **OPEN DECISIONS** with options and delivery impact, rather than invented
+     answers;
+   - **IMPLEMENTATION CONTRACTS** for persistent state, configuration,
+     analytics, UI states, and test cases when the implementation reviewer
+     participated;
+   - **ACCEPTANCE CHECKLIST** that can be used to validate a revised GDD.
+2. `reviews/EXTERNAL-EDITOR-PROMPT.md`, a paste-ready prompt for an external
+   editor. It must direct the editor to revise the full original document,
+   preserve its structure, apply approved decisions everywhere, represent open
+   decisions honestly, and return a change log.
+
+Do not edit or overwrite the source GDD in this round. Do not claim a proposed
+change is approved unless it appears in `context/approved-decisions.md`.
+
+## Revision validation
+
+Run only when the user explicitly supplies a revised GDD and asks for
+validation. Normalize the revised source into `reviews/REVISED-GDD-SOURCE.md`.
+Compare it against `reviews/REVISION-BRIEF.md` and write
+`reviews/REVISION-VALIDATION.md` with:
+
+1. approved decisions applied correctly;
+2. required edit-map items completed, incomplete, or contradicted;
+3. terminology/table/configuration inconsistencies still present;
+4. new contradictions or regressions; and
+5. a concise ship/no-ship recommendation for the document revision.
+
+Inspect relevant rendered pages and mockups as well as text. Never silently
+replace the original source GDD.
 
 ## Round 4 — static visual report
 

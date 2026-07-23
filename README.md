@@ -31,6 +31,8 @@ Either of the following:
    - `codex/roles/visual-reviewer.md` for optional mockup review
    - `codex/roles/implementation-reviewer.md` and a private implementation
      context template for optional platform-aware review
+   - a revision-handoff workflow that turns review evidence into an editing
+     brief and a paste-ready external-editor prompt
    - `reviews/` where output lands
 2. Drop the complete GDD into **`input/`** as a PDF, Word document (`.docx`),
    Markdown, or plain-text file. No trimming, transcription, or conversion is
@@ -46,6 +48,10 @@ Either of the following:
     your target platform or codebase. This private file lets Codex add an
     implementation reviewer without requiring everyone to have the same local
     checkout. It is ignored by Git.
+6. Optional: copy `context/approved-decisions.example.md` to
+   `context/approved-decisions.md` before requesting a revision handoff. Put
+   only decisions the design owner has actually approved in it; the file stays
+   private and is ignored by Git.
 
 ## Running a review
 
@@ -79,6 +85,10 @@ Open this repository in Codex and request the rounds one at a time:
 
     Run Round 5.
 
+    Create a revision handoff.
+
+    Validate this revised GDD against the revision brief.
+
 Codex reads `AGENTS.md` automatically. It reuses the existing six reviewer
 briefs, reads the full GDD from `input/` without requiring a shortened copy,
 and adds the visual reviewer whenever `mockups/` contains images or the source
@@ -87,6 +97,12 @@ slots are available, Codex runs reviewers in parallel batches while keeping
 each review context independent. When a private implementation context is
 present, it also adds an implementation reviewer that distinguishes
 config-only work from new or conflicting engineering work.
+
+After Round 3, you can request `Create a revision handoff.` Codex writes a
+page/section-specific `reviews/REVISION-BRIEF.md` and a paste-ready
+`reviews/EXTERNAL-EDITOR-PROMPT.md`; it does not silently alter the source
+GDD. After an external editor produces a replacement document, place it in
+`input/` and ask Codex to validate it against the brief.
 
 ### What each round does
 
@@ -117,6 +133,12 @@ interactive filtering, severity breakdowns, a reviewer agreement matrix,
 and drill-downs into each finding's cross-examination trail. A viz
 reviewer audits the result for accuracy. This round runs in phases
 because each agent depends on the one before it.
+
+**Revision handoff** is an opt-in step after synthesis. It separates approved
+product decisions from reviewer recommendations, maps edits to the original
+document, and gives a document editor concrete replacement content and
+acceptance checks. **Revision validation** checks a returned full GDD against
+that brief, including rendered visual material where relevant.
 
 ## Example GDD
 
