@@ -29,6 +29,12 @@ specialists' work and keep their contexts independent.
   WEBP, or GIF). Include the `visual-reviewer` role from
   `codex/roles/visual-reviewer.md` when standalone mockups exist or when the
   source document contains visual material worth reviewing.
+- Optional implementation context belongs in `context/implementation-context.md`.
+  This file can summarize a target codebase, platform constraints, service
+  contracts, or production rules. When present, include the
+  `implementation-reviewer` role from
+  `codex/roles/implementation-reviewer.md`. Treat context as evidence, not
+  as a substitute for the GDD, and never commit private implementation context.
 
 The text-review roles are: `systems-designer`, `narrative-critic`,
 `player-psychologist`, `feasibility-lead`, `adversarial-qa`, and
@@ -50,13 +56,18 @@ findings into a Round 1 reviewer context.
    separate visual-reviewer task. It must inspect every relevant asset and
    rendered source page, read `reviews/GDD-SOURCE.md` for product intent, and
    write `reviews/visual-reviewer.md`.
-4. Report which reviews completed, one line from each returned summary, and
+4. If `context/implementation-context.md` exists, start a separate
+   implementation-reviewer task. It must read that context and
+   `reviews/GDD-SOURCE.md`, identify GDD requirements that conflict with or
+   extend the documented implementation, and write
+   `reviews/implementation-reviewer.md`.
+5. Report which reviews completed, one line from each returned summary, and
    the paths to the full files. Do not editorialize.
 
 ## Round 2 — cross-examination
 
-1. Verify the Round 1 review files exist. Include `visual-reviewer.md` only
-   when it exists.
+1. Verify the Round 1 review files exist. Include `visual-reviewer.md` and
+   `implementation-reviewer.md` only when they exist.
 2. Start one isolated task per participating reviewer. Give each reviewer
    access to all Round 1 files, including its own. Ask it to append a
    `## Round 2 — Cross-examination` section to its own file with:
@@ -68,7 +79,9 @@ findings into a Round 1 reviewer context.
 
    Every reviewer must engage with at least two colleagues' specific findings;
    pure agreement is a failed round. The visual reviewer should explicitly
-   relate visual/UI evidence to at least two text-review findings.
+   relate visual/UI evidence to at least two text-review findings. The
+   implementation reviewer should identify at least two places where the GDD
+   and implementation context either align or conflict.
 3. Relay the returned summaries without editorializing.
 
 ## Round 3 — moderator synthesis

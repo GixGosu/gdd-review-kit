@@ -29,6 +29,8 @@ Either of the following:
    - `CLAUDE.md` for the Claude Code workflow and `AGENTS.md` for the Codex
      workflow
    - `codex/roles/visual-reviewer.md` for optional mockup review
+   - `codex/roles/implementation-reviewer.md` and a private implementation
+     context template for optional platform-aware review
    - `reviews/` where output lands
 2. Drop the complete GDD into **`input/`** as a PDF, Word document (`.docx`),
    Markdown, or plain-text file. No trimming, transcription, or conversion is
@@ -39,6 +41,11 @@ Either of the following:
 4. Optional: place UI mockups, wireframes, or screenshots in `mockups/`.
    Supported formats are PNG, JPG, JPEG, WEBP, and GIF. These files stay local
    and are not committed by default.
+5. Optional: copy `context/implementation-context.example.md` to
+    `context/implementation-context.md` and add a concise, approved profile of
+    your target platform or codebase. This private file lets Codex add an
+    implementation reviewer without requiring everyone to have the same local
+    checkout. It is ignored by Git.
 
 ## Running a review
 
@@ -77,7 +84,9 @@ briefs, reads the full GDD from `input/` without requiring a shortened copy,
 and adds the visual reviewer whenever `mockups/` contains images or the source
 document itself contains reviewable visual material. When fewer than six worker
 slots are available, Codex runs reviewers in parallel batches while keeping
-each review context independent.
+each review context independent. When a private implementation context is
+present, it also adds an implementation reviewer that distinguishes
+config-only work from new or conflicting engineering work.
 
 ### What each round does
 

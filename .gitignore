@@ -2,6 +2,8 @@
 gdd.txt
 input/
 mockups/
+context/implementation-context.md
+review-runs/
 
 # Generated output
 reviews/*.md
