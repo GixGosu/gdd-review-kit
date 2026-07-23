@@ -1,5 +1,9 @@
 # User's GDD — not part of the kit
 gdd.txt
+input/
+mockups/
+context/implementation-context.md
+review-runs/
 
 # Generated output
 reviews/*.md
