@@ -125,9 +125,25 @@ review file. Read `context/approved-decisions.md` only when it exists. Write:
      participated;
    - **ACCEPTANCE CHECKLIST** that can be used to validate a revised GDD.
 2. `reviews/EXTERNAL-EDITOR-PROMPT.md`, a paste-ready prompt for an external
-   editor. It must direct the editor to revise the full original document,
-   preserve its structure, apply approved decisions everywhere, represent open
-   decisions honestly, and return a change log.
+   editor. It must direct the editor to revise the current full original
+   document in place, preserve its structure, apply approved decisions
+   everywhere, represent open decisions honestly, and return a change log. It
+   must include this execution protocol:
+   - Edit the document the user currently has open; do not respond with a new,
+     shortened document in chat and do not merely describe intended edits.
+   - First map every affected heading, table, diagram annotation, wireframe
+     label, analytics event, configuration field, QA case, and support rule.
+   - Make the edits across the entire document, including repeated labels and
+     appendices. When an embedded visual cannot be changed, add a clearly
+     labeled replacement annotation at its existing location.
+   - Do not alter an approved value, add a new product decision, or delete a
+     future-scope feature merely because it is not part of V1. Label deferred
+     scope explicitly instead.
+   - Before claiming completion, run a consistency sweep for legacy terms,
+     tier names, old values, and conflicting tables. Report remaining matches
+     by section, or state that none remain outside historical change-log text.
+   - Finish with a compact execution report: changed sections, unresolved
+     decisions, deferred/V2 items, and the exact verification searches run.
 
 Do not edit or overwrite the source GDD in this round. Do not claim a proposed
 change is approved unless it appears in `context/approved-decisions.md`.
